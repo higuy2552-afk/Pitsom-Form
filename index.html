@@ -152,7 +152,7 @@
             50% { opacity: 1; }
         }
 
-        /* Background Particles - More Red */
+        /* Background Particles */
         .particles {
             position: fixed;
             top: 0;
@@ -846,29 +846,6 @@
             margin-bottom: 30px;
         }
 
-        .music-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, var(--blood-red), var(--dark-red));
-            border: none;
-            border-radius: 50px;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
-        }
-
-        .music-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(220, 20, 60, 0.6);
-            background: linear-gradient(135deg, var(--crimson), var(--blood-red));
-        }
-
         /* Floating Music Button - Left Side */
         .floating-music-btn {
             position: fixed;
@@ -884,7 +861,7 @@
             justify-content: center;
             cursor: pointer;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, transform 0.3s ease;
             box-shadow: 
                 0 0 30px rgba(220, 20, 60, 0.6),
                 0 0 60px rgba(220, 20, 60, 0.3),
@@ -909,14 +886,10 @@
 
         .floating-music-btn:hover {
             transform: scale(1.1);
-            box-shadow: 
-                0 0 50px rgba(220, 20, 60, 0.9),
-                0 0 100px rgba(220, 20, 60, 0.6),
-                inset 0 0 30px rgba(255, 255, 255, 0.2);
         }
 
         .floating-music-btn.playing {
-            animation: btn-glow 2s ease-in-out infinite, btn-rotate 10s linear infinite;
+            animation: btn-glow 2s ease-in-out infinite, btn-rotate 8s linear infinite;
         }
 
         @keyframes btn-rotate {
@@ -932,10 +905,6 @@
             transition: all 0.3s ease;
         }
 
-        .floating-music-btn:hover .music-icon-svg {
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
-        }
-
         /* Music Ring Animation */
         .music-ring {
             position: absolute;
@@ -945,7 +914,7 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 2px solid rgba(220, 20, 60, 0.5);
+            border: 2px solid rgba(220, 20, 60, 0.6);
             opacity: 0;
             pointer-events: none;
         }
@@ -955,25 +924,12 @@
         }
 
         @keyframes ring-expand {
-            0% {
-                width: 100%;
-                height: 100%;
-                opacity: 0.8;
-            }
-            100% {
-                width: 200%;
-                height: 200%;
-                opacity: 0;
-            }
+            0% { width: 100%; height: 100%; opacity: 0.8; }
+            100% { width: 250%; height: 250%; opacity: 0; }
         }
 
-        .music-ring:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .music-ring:nth-child(3) {
-            animation-delay: 1s;
-        }
+        .music-ring:nth-child(2) { animation-delay: 0.7s; }
+        .music-ring:nth-child(3) { animation-delay: 1.4s; }
 
         /* Music Status Text */
         .music-status {
@@ -1079,7 +1035,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
     <div class="loader" id="loader">
         <div class="loader-content">
             <div class="loader-text">PITSOM</div>
@@ -1087,25 +1042,20 @@
         </div>
     </div>
 
-    <!-- Red Ambient Effects -->
     <div class="red-vignette"></div>
     <div class="scan-lines"></div>
 
-    <!-- Background Particles -->
     <div class="particles" id="particles"></div>
 
-    <!-- Floating Red Orbs -->
     <div class="red-orbs" id="redOrbs"></div>
 
-    <!-- Hidden Audio Iframe -->
     <iframe id="audioFrame" 
-            src="https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/preview" 
+            src="" 
             width="0" height="0" 
             style="display: none;"
             allow="autoplay">
     </iframe>
 
-    <!-- Navigation -->
     <nav class="nav" id="nav">
         <div class="nav-logo">P.G</div>
         <ul class="nav-links">
@@ -1117,7 +1067,6 @@
         </ul>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-grid"></div>
@@ -1133,7 +1082,6 @@
         </div>
     </section>
 
-    <!-- Profile Section -->
     <section class="section profile-section" id="profile">
         <div class="section-inner">
             <div class="section-header reveal">
@@ -1190,7 +1138,6 @@
         </div>
     </section>
 
-    <!-- Personality Section -->
     <section class="section personality-section" id="personality">
         <div class="section-inner">
             <div class="section-header reveal">
@@ -1224,7 +1171,6 @@
         </div>
     </section>
 
-    <!-- Quote Section -->
     <section class="section quote-section" id="quote">
         <div class="section-inner">
             <div class="quote-container reveal">
@@ -1237,7 +1183,6 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section class="section gallery-section" id="gallery">
         <div class="section-inner">
             <div class="section-header reveal">
@@ -1262,7 +1207,6 @@
         </div>
     </section>
 
-    <!-- Music Section -->
     <section class="section music-section" id="music">
         <div class="section-inner">
             <div class="section-header reveal">
@@ -1274,20 +1218,20 @@
                 <div class="music-icon">🎵</div>
                 <h3 class="music-title">PITSOM'S THEME</h3>
                 <p class="music-subtitle">Original Soundtrack • Cinematic</p>
-                <a href="https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/view?usp=drivesdk" target="_blank" class="music-btn">
-                    ▶ PLAY ON DRIVE
+                <a href="https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/view?usp=drivesdk" target="_blank" style="text-decoration: none; display: inline-block;">
+                    <div style="padding: 15px 40px; background: linear-gradient(135deg, var(--blood-red), var(--dark-red)); border-radius: 50px; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);">
+                        🔗 OPEN IN DRIVE
+                    </div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <p class="footer-text">"In the silence between words, the truth resides."</p>
         <p class="footer-credit">PITSOM GARCIA © 2026 | CHARACTER PROFILE</p>
     </footer>
 
-    <!-- Floating Music Button -->
     <div class="music-status" id="musicStatus">♪ NOW PLAYING</div>
     <div class="floating-music-btn" id="musicBtn" title="Play/Pause Music">
         <div class="music-ring"></div>
@@ -1331,14 +1275,14 @@
             redOrbsContainer.appendChild(orb);
         }
 
-        // Music Player Control
+        // Single Unified Music Player Control
         const musicBtn = document.getElementById('musicBtn');
         const musicIcon = document.getElementById('musicIcon');
         const musicStatus = document.getElementById('musicStatus');
         const audioFrame = document.getElementById('audioFrame');
         let isPlaying = false;
 
-        // Play/Pause icon paths
+        const url = "https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/preview";
         const playPath = "M8 5v14l11-7z";
         const pausePath = "M6 4h4v16H6V4zm8 0h4v16h-4V4z";
 
@@ -1350,25 +1294,15 @@
                 musicIcon.innerHTML = `<path d="${pausePath}"/>`;
                 musicStatus.classList.add('visible');
                 musicStatus.textContent = '♪ NOW PLAYING';
-                
-                // Try to interact with iframe (limited by cross-origin)
-                try {
-                    const iframe = audioFrame.contentWindow;
-                    // Google Drive preview doesn't allow direct control, so we reload with autoplay
-                    audioFrame.src = "https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/preview?autoplay=1";
-                } catch(e) {
-                    console.log('Cross-origin restriction - using iframe preview');
-                }
+                audioFrame.src = url + "?autoplay=1";
             } else {
                 musicBtn.classList.remove('playing');
                 musicIcon.innerHTML = `<path d="${playPath}"/>`;
                 musicStatus.textContent = '⏸ PAUSED';
-                
-                // Reload iframe to stop
-                audioFrame.src = "https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/preview";
+                audioFrame.src = '';
                 
                 setTimeout(() => {
-                    musicStatus.classList.remove('visible');
+                    if (!isPlaying) musicStatus.classList.remove('visible');
                 }, 2000);
             }
         });
@@ -1433,178 +1367,6 @@
             if (hero && scrolled < window.innerHeight) {
                 hero.style.transform = `translateY(${scrolled * 0.5}px)`;
                 hero.style.opacity = 1 - (scrolled / window.innerHeight);
-            }
-        });
-
-        // Mouse move red glow effect
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            document.documentElement.style.setProperty('--mouse-x', x);
-            document.documentElement.style.setProperty('--mouse-y', y);
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <title>Music Button</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            min-height: 100vh;
-            background: #0a0a0a;
-            font-family: sans-serif;
-        }
-
-        /* ปุ่มเพลงวงกลม */
-        .music-btn {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #dc143c, #5c0000);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 
-                0 0 25px rgba(220, 20, 60, 0.6),
-                0 0 50px rgba(220, 20, 60, 0.3),
-                inset 0 0 15px rgba(255, 255, 255, 0.1);
-            animation: glow 2s ease-in-out infinite;
-            transition: transform 0.3s ease;
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 
-                    0 0 25px rgba(220, 20, 60, 0.6),
-                    0 0 50px rgba(220, 20, 60, 0.3),
-                    inset 0 0 15px rgba(255, 255, 255, 0.1);
-            }
-            50% {
-                box-shadow: 
-                    0 0 35px rgba(220, 20, 60, 0.9),
-                    0 0 70px rgba(220, 20, 60, 0.5),
-                    inset 0 0 20px rgba(255, 255, 255, 0.2);
-            }
-        }
-
-        .music-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .music-btn.playing {
-            animation: glow 2s ease-in-out infinite, spin 8s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .music-btn svg {
-            width: 26px;
-            height: 26px;
-            fill: white;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
-        }
-
-        /* วงแหวนขยาย */
-        .ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            border: 2px solid rgba(220, 20, 60, 0.6);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .music-btn.playing .ring {
-            animation: expand 2s ease-out infinite;
-        }
-
-        .music-btn.playing .ring:nth-child(2) { animation-delay: 0.7s; }
-        .music-btn.playing .ring:nth-child(3) { animation-delay: 1.4s; }
-
-        @keyframes expand {
-            0% { width: 100%; height: 100%; opacity: 0.8; }
-            100% { width: 250%; height: 250%; opacity: 0; }
-        }
-
-        /* สถานะ */
-        .status {
-            position: fixed;
-            bottom: 100px;
-            left: 30px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: #dc143c;
-            text-transform: uppercase;
-            opacity: 0;
-            transition: opacity 0.3s;
-            text-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
-            z-index: 1000;
-        }
-
-        .status.show { opacity: 1; }
-    </style>
-</head>
-<body>
-
-    <div class="status" id="status">♪ NOW PLAYING</div>
-
-    <div class="music-btn" id="musicBtn">
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <svg id="icon" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
-        </svg>
-    </div>
-
-    <!-- iframe ซ่อนสำหรับเล่นเพลง -->
-    <iframe id="player" 
-            src="" 
-            style="display:none;" 
-            allow="autoplay">
-    </iframe>
-
-    <script>
-        const btn = document.getElementById('musicBtn');
-        const icon = document.getElementById('icon');
-        const player = document.getElementById('player');
-        const status = document.getElementById('status');
-        let playing = false;
-
-        const url = "https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/preview";
-
-        const playIcon = '<path d="M8 5v14l11-7z"/>';
-        const pauseIcon = '<path d="M6 4h4v16H6zm8 0h4v16h-4z"/>';
-
-        btn.addEventListener('click', () => {
-            playing = !playing;
-            if (playing) {
-                btn.classList.add('playing');
-                icon.innerHTML = pauseIcon;
-                status.classList.add('show');
-                player.src = url;
-            } else {
-                btn.classList.remove('playing');
-                icon.innerHTML = playIcon;
-                status.classList.remove('show');
-                player.src = '';
             }
         });
     </script>
