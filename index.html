@@ -1450,203 +1450,163 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PITSOM GARCIA | The Silent Predator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Music Button</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-black: #0a0a0a;
-            --deep-black: #050505;
-            --charcoal: #1a1a1a;
-            --dark-gray: #2a2a2a;
-            --medium-gray: #4a4a4a;
-            --light-gray: #8a8a8a;
-            --blood-red: #8b0000;
-            --crimson: #dc143c;
-            --dark-red: #5c0000;
-            --accent-red: #ff2d2d;
-            --glow-red: #ff0033;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--deep-black);
-            color: #e0e0e0;
-            overflow-x: hidden;
-            cursor: default;
+            min-height: 100vh;
+            background: #0a0a0a;
+            font-family: sans-serif;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--deep-black);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--blood-red), var(--dark-red));
-            border-radius: 4px;
-        }
-
-        /* Red Ambient Vignette */
-        .red-vignette {
+        /* ปุ่มเพลงวงกลม */
+        .music-btn {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            background: 
-                radial-gradient(ellipse at 0% 50%, rgba(220, 20, 60, 0.08) 0%, transparent 40%),
-                radial-gradient(ellipse at 100% 50%, rgba(139, 0, 0, 0.06) 0%, transparent 40%),
-                radial-gradient(ellipse at 50% 100%, rgba(255, 0, 51, 0.05) 0%, transparent 50%);
-            animation: vignette-pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes vignette-pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        /* Red Scan Lines */
-        .scan-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 3;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(220, 20, 60, 0.015) 2px,
-                rgba(220, 20, 60, 0.015) 4px
-            );
-        }
-
-        /* Loading Screen */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--deep-black);
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #dc143c, #5c0000);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            box-shadow: 
+                0 0 25px rgba(220, 20, 60, 0.6),
+                0 0 50px rgba(220, 20, 60, 0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.1);
+            animation: glow 2s ease-in-out infinite;
+            transition: transform 0.3s ease;
         }
 
-        .loader.hidden {
-            opacity: 0;
-            visibility: hidden;
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 25px rgba(220, 20, 60, 0.6),
+                    0 0 50px rgba(220, 20, 60, 0.3),
+                    inset 0 0 15px rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 35px rgba(220, 20, 60, 0.9),
+                    0 0 70px rgba(220, 20, 60, 0.5),
+                    inset 0 0 20px rgba(255, 255, 255, 0.2);
+            }
         }
 
-        .loader-content {
-            text-align: center;
+        .music-btn:hover {
+            transform: scale(1.1);
         }
 
-        .loader-text {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: var(--crimson);
-            letter-spacing: 15px;
-            animation: pulse 1.5s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(220, 20, 60, 0.8);
+        .music-btn.playing {
+            animation: glow 2s ease-in-out infinite, spin 8s linear infinite;
         }
 
-        .loader-bar {
-            width: 200px;
-            height: 2px;
-            background: var(--dark-gray);
-            margin: 20px auto;
-            position: relative;
-            overflow: hidden;
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .loader-bar::after {
-            content: '';
+        .music-btn svg {
+            width: 26px;
+            height: 26px;
+            fill: white;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
+        }
+
+        /* วงแหวนขยาย */
+        .ring {
             position: absolute;
-            top: 0;
-            left: -100%;
+            top: 50%;
+            left: 50%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, var(--crimson), transparent);
-            animation: loading 1.5s ease-in-out infinite;
-        }
-
-        @keyframes loading {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        /* Background Particles - More Red */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--crimson);
+            border: 2px solid rgba(220, 20, 60, 0.6);
             border-radius: 50%;
+            transform: translate(-50%, -50%);
             opacity: 0;
-            box-shadow: 0 0 10px var(--crimson), 0 0 20px rgba(220, 20, 60, 0.5);
-            animation: float-particle 15s infinite;
-        }
-
-        @keyframes float-particle {
-            0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { opacity: 0; transform: translateY(-100px) scale(1); }
-        }
-
-        /* Floating Red Orbs */
-        .red-orbs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             pointer-events: none;
-            z-index: 1;
         }
 
-        .red-orb {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(220, 20, 60, 0.4) 0%, transparent 70%);
-            filter: blur(20px);
-            animation: orb-float 20s infinite ease-in-out;
+        .music-btn.playing .ring {
+            animation: expand 2s ease-out infinite;
         }
 
-        @keyframes orb-float {
-            0%, 10
+        .music-btn.playing .ring:nth-child(2) { animation-delay: 0.7s; }
+        .music-btn.playing .ring:nth-child(3) { animation-delay: 1.4s; }
+
+        @keyframes expand {
+            0% { width: 100%; height: 100%; opacity: 0.8; }
+            100% { width: 250%; height: 250%; opacity: 0; }
+        }
+
+        /* สถานะ */
+        .status {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #dc143c;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
+            z-index: 1000;
+        }
+
+        .status.show { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <div class="status" id="status">♪ NOW PLAYING</div>
+
+    <div class="music-btn" id="musicBtn">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <svg id="icon" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+    </div>
+
+    <!-- iframe ซ่อนสำหรับเล่นเพลง -->
+    <iframe id="player" 
+            src="" 
+            style="display:none;" 
+            allow="autoplay">
+    </iframe>
+
+    <script>
+        const btn = document.getElementById('musicBtn');
+        const icon = document.getElementById('icon');
+        const player = document.getElementById('player');
+        const status = document.getElementById('status');
+        let playing = false;
+
+        const url = "https://drive.google.com/file/d/1yL0ph0SXsVRuFlSRnzbKAvQ9FU9mT_Us/preview";
+
+        const playIcon = '<path d="M8 5v14l11-7z"/>';
+        const pauseIcon = '<path d="M6 4h4v16H6zm8 0h4v16h-4z"/>';
+
+        btn.addEventListener('click', () => {
+            playing = !playing;
+            if (playing) {
+                btn.classList.add('playing');
+                icon.innerHTML = pauseIcon;
+                status.classList.add('show');
+                player.src = url;
+            } else {
+                btn.classList.remove('playing');
+                icon.innerHTML = playIcon;
+                status.classList.remove('show');
+                player.src = '';
+            }
+        });
+    </script>
+</body>
+</html>
